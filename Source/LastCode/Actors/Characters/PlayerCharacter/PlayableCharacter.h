@@ -1,0 +1,119 @@
+#pragma once
+
+#include "Actors/Characters/PlayerCharacter/Preview/PreviewCharacter.h"
+#include "PlayableCharacter.generated.h"
+
+#ifndef GROUND_MOVE_SPEED
+#define GROUND_MOVE_SPEED
+#define WALK_SPEED			250.0f
+#define RUN_SPEED			750.0f
+#endif
+
+UCLASS()
+class LASTCODE_API APlayableCharacter : public APreviewCharacter
+{
+	GENERATED_BODY()
+
+#pragma region Components
+private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Basic", meta = (AllowPrivateAccess = "true"))
+		class USkillControllerComponent* SkillController;
+#pragma endregion
+
+#pragma region ect Value
+private:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Basic", meta = (AllowPrivateAccess = "true"))
+		float MaxHp;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Basic", meta = (AllowPrivateAccess = "true"))
+		float Hp;
+
+	class APlayableController* PlayableController;
+
+	UPROPERTY()
+	class UPlayerManager* PlayerManager;
+
+	UPROPERTY()
+	class UQuickManager* QuickManager;
+#pragma endregion
+
+#pragma region StateValue
+	bool bIsMoveable;
+#pragma endregion
+
+public:
+	APlayableCharacter();
+
+#pragma region Overrides
+protected:
+	virtual void BeginPlay() override;
+
+	virtual void OnTakeDamage(
+		AActor* DamagedActor,
+		float Damage,
+		const class UDamageType* DamageType,
+		class AController* InstigatedBy,
+		AActor* DamageCauser) override;
+
+public:
+	virtual void Tick(float DeltaTime) override;
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual float GetMaxHp() override;
+	virtual float GetHp() override;
+	virtual void SetHp(float value) override;
+
+	float GetMaxStamina();
+	float GetStamina();
+	void SetStamina(float value);
+
+#pragma endregion
+
+private:
+	void LoadAsset();
+
+protected:
+	virtual void InitializeComponent() override;
+
+#pragma region Axis
+protected:
+	UFUNCTION(BlueprintCallable, Category = "CharacterAction")
+		void InputHorizontal(float axis);
+
+	UFUNCTION(BlueprintCallable, Category = "CharacterAction")
+		void InputVertical(float axis);
+#pragma endregion
+
+#pragma region StateFunction
+public:
+	virtual void Jump() override;
+	virtual void Landed(const FHitResult& Hit) override;
+
+private:
+	void Run();
+	void Walk();
+	void QuickSlotPressed(struct FKey key);
+#pragma endregion
+
+public :
+	void SetImpluse(FVector direction, float power);
+	void LookatControlDirection();
+
+public:
+	class UPlayerManager* GetPlayerManager();
+
+	bool IsMoveable();
+
+	FORCEINLINE void ProhibitMove()
+	{ bIsMoveable = false; }
+
+	FORCEINLINE void AllowMove()
+	{ bIsMoveable = true; }
+
+	FORCEINLINE bool IsInAir() const
+	{ return GetCharacterMovement()->IsFalling(); }
+
+	FORCEINLINE USkillControllerComponent* GetSkillControllerComponent() const
+	{ return SkillController; }
+};

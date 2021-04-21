@@ -1,0 +1,2 @@
+#include "StaminaType.h"
+
