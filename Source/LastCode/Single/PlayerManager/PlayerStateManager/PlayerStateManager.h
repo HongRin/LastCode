@@ -31,4 +31,6 @@ public:
 	void CreatePlayerStateManager(
 		class UWidgetControllerWidget* widgetController,
 		EInputModeType changeInputMode = EInputModeType::IM_Default, bool bShowCursor = true);
+
+	void ClosePlayerStateManager(class UWidgetControllerWidget* widgetController);
 };

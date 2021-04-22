@@ -20,16 +20,21 @@ UPlayerStateManager::UPlayerStateManager()
 
 void UPlayerStateManager::CreatePlayerStateManager(UWidgetControllerWidget* widgetController, EInputModeType changeInputMode, bool bShowCursor)
 {
-	if (!IsValid(PlayerProgressBar))
+	if (IsValid(PlayerProgressBar))
+	{
+		PlayerProgressBar->RemoveFromParent();
+		UE_LOG(LogTemp, Warning, TEXT("PlayerProgressBar is valid"));
+	}
+	else
 	{
 		PlayerProgressBar = CreateWidget<UPlayerProgressBar>(widgetController, BP_PlayerProgressBar);
+		UE_LOG(LogTemp, Warning, TEXT("PlayerProgressBar is not valid"));
 	}
-
-	widgetController->AddChildWidget(PlayerProgressBar, EInputModeType::IM_GameOnly, true, 1000.0f, 200.0f);
+	
+	widgetController->AddChildWidget(PlayerProgressBar, EInputModeType::IM_GameOnly, false, 1000.0f, 200.0f);
 	Cast<UCanvasPanelSlot>(PlayerProgressBar->Slot)->SetAnchors(FAnchors(0.5f, 0.5f, 0.5f, 0.5f));
 	Cast<UCanvasPanelSlot>(PlayerProgressBar->Slot)->SetAlignment(FVector2D(0.5f, -1.29f));
 
 	if (OnUpdateHp.IsBound()) OnUpdateHp.Broadcast();
 	if (OnUpdateStamina.IsBound()) OnUpdateStamina.Broadcast();
-
 }

@@ -14,6 +14,8 @@ UInventory::UInventory()
     static ConstructorHelpers::FClassFinder<UInventoryWnd> BP_INVENTORY_WND(
         TEXT("WidgetBlueprint'/Game/Resources/Blueprints/Widgets/ClosableWnd/DraggableWnd/Inventory/BP_InventoryWnd.BP_InventoryWnd_C'"));
     if (BP_INVENTORY_WND.Succeeded()) BP_InventoryWnd = BP_INVENTORY_WND.Class;
+
+
 }
 
 UInventoryWnd* UInventory::CreateInventoryWnd(UWidgetControllerWidget* widgetController, EInputModeType changeInputMode, bool bShowCursor)
@@ -55,6 +57,16 @@ FItemSlotInfo* UInventory::GetItemSlotInfo(int32 slotIndex) const
 	return &GetManager(UPlayerManager)->GetPlayerInfo()->InventoryItemInfos[slotIndex];
 }
 
+int32 UInventory::GetSlotIndexByCode(FName code) const
+{
+	for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->InventoryItemInfos.Num(); ++i)
+	{
+		if (GetManager(UPlayerManager)->GetPlayerInfo()->InventoryItemInfos[i].ItemCode == code) return i;
+	}
+
+	return 0;
+}
+
 void UInventory::SwapItem(UInventoryItemSlot* first, UInventoryItemSlot* second)
 {
 	auto playerInfo = GetManager(UPlayerManager)->GetPlayerInfo();
@@ -87,6 +99,6 @@ void UInventory::RemoveItem(int32 itemSlotIndex, int32 removeCount)
 	if (inventoryItemInfo[itemSlotIndex].ItemCount <= 0)
 		inventoryItemInfo[itemSlotIndex].Clear();
 
-	if (OnInventorySlotChanged.IsBound()) OnInventorySlotChanged.Broadcast();
+	if (IsValid(InventoryWnd) && OnInventorySlotChanged.IsBound()) OnInventorySlotChanged.Broadcast();
 }
  

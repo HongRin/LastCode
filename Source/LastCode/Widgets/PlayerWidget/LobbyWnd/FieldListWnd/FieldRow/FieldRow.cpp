@@ -19,11 +19,9 @@ void UFieldRow::NativeConstruct()
 
 	Difficulty = 0;
 
-
 	Button_Next->OnClicked.AddDynamic(this, &UFieldRow::NextButtonClicked);
 	Button_Previous->OnClicked.AddDynamic(this, &UFieldRow::PreviousButtonClicked);
-
-
+	Button_EnterDungeon->OnClicked.AddDynamic(this, &UFieldRow::EnterDungeonButtonClicked);
 }
 
 void UFieldRow::UpdateFieldRow(FFieldInfo* fieldInfo)
@@ -35,6 +33,8 @@ void UFieldRow::UpdateFieldRow(FFieldInfo* fieldInfo)
 	Image_Field->SetBrushFromTexture(imageTexture);
 
 	SetLock(fieldInfo->FieldUnLockLevel);
+
+	EnterLevelName = fieldInfo->FieldName;
 
 	SetDifficulty();
 }
@@ -103,5 +103,11 @@ void UFieldRow::NextButtonClicked()
 	if (Difficulty > 4) Difficulty = 4;
 	else PlayAnimation(DifficultyUp);
 	SetDifficulty();
+}
+
+void UFieldRow::EnterDungeonButtonClicked()
+{
+	Cast<ULCGameInstance>(GetGameInstance())->SetNextLevelName(EnterLevelName);
+	UGameplayStatics::OpenLevel(this, FName(TEXT("LoadingLevel")));
 }
 

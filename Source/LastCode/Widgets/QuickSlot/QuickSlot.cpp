@@ -92,6 +92,10 @@ void UQuickSlot::InitiailzeBind()
 			if (QuickSlotkey == quickSlotInfo.QuickSlotKey)
 				Text_Value->SetText(FText::FromString(FString::Printf(TEXT("Lv %d"), skilLevel)));
 		});
+
+	GetManager(UPlayerManager)->GetQuickManager()->ItemRemoveEvent.AddLambda([this](FName code) {
+		int32 index = GetManager(UPlayerManager)->GetInventory()->GetSlotIndexByCode(code);
+			GetManager(UPlayerManager)->GetInventory()->RemoveItem(index); });
 }
 
 void UQuickSlot::LogPlayerQuickSlotInfo()

@@ -29,4 +29,6 @@ void UPlayerProgressBar::NativeConstruct()
 		Text_Stamina->SetText(FText::FromString(
 			FString::Printf(TEXT("%.0f / %.0f"), PlayableCharacter->GetStamina(), PlayableCharacter->GetMaxStamina())));
 		});
+
+
 }

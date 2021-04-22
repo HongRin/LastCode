@@ -30,6 +30,7 @@ void APlayableController::OnPossess(APawn* aPawn)
 
 	GetManager(UPlayerManager)->GetPlayerStateManager()->CreatePlayerStateManager(GetWidgetControllerWidget());
 	GetManager(UPlayerManager)->GetQuickManager()->CreateQuickSlotBar(GetWidgetControllerWidget());
+
 }
 
 void APlayableController::RegisterToggleEvent()

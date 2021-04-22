@@ -21,6 +21,8 @@ public :
 
 private :
 	TSubclassOf<class UQuickSlotBar> BP_QuickSlotBar;
+
+	UPROPERTY()
 	class UQuickSlotBar* QuickSlotBar;
 
 public :

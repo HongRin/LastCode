@@ -47,6 +47,7 @@ private :
 
 private :
 	int32 Difficulty;
+	FName EnterLevelName;
 	
 public :
 	UFieldRow(const FObjectInitializer& ObjInitializer);
@@ -61,7 +62,6 @@ private :
 	void SetDifficulty();
 	void SetLock(int32 unLockLevel);
 
-
 private :
 	UFUNCTION()
 	void PreviousButtonClicked();
@@ -70,4 +70,6 @@ private :
 	void NextButtonClicked();
 
 
+	UFUNCTION()
+	void EnterDungeonButtonClicked();
 };

@@ -63,9 +63,7 @@ void UInventoryItemSlot::NativeConstruct()
 
 	GetManager(UPlayerManager)->GetInventory()->OnInventorySlotChanged.AddUObject(this, &UInventoryItemSlot::UpdateInventoryItemSlot);
 
-	GetManager(UPlayerManager)->GetQuickManager()->ItemRemoveEvent.AddLambda([this](FName code) {
-		if(code == GetManager(UPlayerManager)->GetInventory()->GetItemSlotInfo(ItemSlotIndex)->ItemCode) 
-			GetManager(UPlayerManager)->GetInventory()->RemoveItem(ItemSlotIndex); });
+
 }
 
 void UInventoryItemSlot::InitializeItemSlot(ESlotType slotType, FName itemCode, ESkillType skillType, int32 itemSlotIndex)

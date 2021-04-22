@@ -18,8 +18,7 @@ void UWidgetControllerWidget::InitializeWidgetControllerWidget(
 void UWidgetControllerWidget::ResetInputMode(bool bForceChange)
 {
 	// 열린 창과 위젯이 존재하지 않는다면 입력 모드를 변경합니다.
-	if (bForceChange ||
-		((AllocatedWnds.Num() == 0) && (AllocatedWidgets.Num() == 0)))
+	if (bForceChange || (AllocatedWnds.Num() == 0))
 	{
 		// 입력 모드를 설정
 		PlayerController->ChangeInputModeToDefault();

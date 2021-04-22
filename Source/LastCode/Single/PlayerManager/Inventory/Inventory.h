@@ -45,6 +45,9 @@ public:
 	// 아이템 슬롯 정보를 얻습니다.
 	FItemSlotInfo* GetItemSlotInfo(int32 slotIndex) const;
 
+	// 코드를 통해 아이템 슬롯 정보를 얻습니다.
+	int32 GetSlotIndexByCode(FName code) const;
+
 	// 인벤토리 아이템을 교체합니다.
 	void SwapItem(class UInventoryItemSlot* first, class UInventoryItemSlot* second);
 

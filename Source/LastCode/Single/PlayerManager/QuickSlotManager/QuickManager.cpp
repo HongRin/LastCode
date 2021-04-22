@@ -22,9 +22,18 @@ UQuickManager::UQuickManager()
 
 void UQuickManager::CreateQuickSlotBar(UWidgetControllerWidget* widgetController, EInputModeType changeInputMode, bool bShowCursor)
 {
-	if (!IsValid(QuickSlotBar))
-	QuickSlotBar = CreateWidget<UQuickSlotBar>(widgetController, BP_QuickSlotBar);
-	widgetController->AddChildWidget(QuickSlotBar, EInputModeType::IM_GameOnly, true, 512.0f, 64.0f);
+	if (IsValid(QuickSlotBar))
+	{
+		QuickSlotBar->RemoveFromParent();
+		UE_LOG(LogTemp, Warning, TEXT("QuickSlotBar is valid"));
+	}
+	else
+	{
+		QuickSlotBar = CreateWidget<UQuickSlotBar>(widgetController, BP_QuickSlotBar);
+		UE_LOG(LogTemp, Warning, TEXT("QuickSlotBar is not valid"));
+	}
+
+	widgetController->AddChildWidget(QuickSlotBar, EInputModeType::IM_GameOnly, false, 512.0f, 64.0f);
 	Cast<UCanvasPanelSlot>(QuickSlotBar->Slot)->SetAnchors(FAnchors(0.5f, 0.5f, 0.5f, 0.5f));
 	Cast<UCanvasPanelSlot>(QuickSlotBar->Slot)->SetAlignment(FVector2D(0.5f, -5.595f));
 }

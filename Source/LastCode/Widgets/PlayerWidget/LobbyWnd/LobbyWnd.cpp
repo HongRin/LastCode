@@ -49,6 +49,12 @@ void ULobbyWnd::CloseFieldListWnd()
 	{
 		WidgetController->CloseChildWidget(FieldListWnd);
 		FieldListWnd = nullptr;
+
+		ABasePlayerController* playableController = GetManager(UPlayerManager)->GetPlayableController();
+
+		playableController->ChangeInputModeToDefault();
+
+		playableController->bShowMouseCursor = playableController->GetDefaultCursorVisibility();
 	}
 }
 
