@@ -9,6 +9,11 @@ class LASTCODE_API UFieldListWnd : public UUserWidget
 {
 	GENERATED_BODY()
 	
+private :
+	TSubclassOf<class UFieldRow> BP_FieldRow;
+
+	class UDataTable* DT_FieldInfo;
+
 private:
 	UPROPERTY(meta = (BindWidget))
 	class UScrollBox* ScrollBox_List;
@@ -19,8 +24,6 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	class UButton* Button_Next;
 
-	float bNextButton;
-	float bScrollable;
 	float CurrentOffset;
 	float NextOffset;
 
@@ -34,6 +37,7 @@ protected :
 	
 private :
 	void SetScroll(float time);
+	void InitializeFieldListWnd();
 
 private :
 	UFUNCTION()

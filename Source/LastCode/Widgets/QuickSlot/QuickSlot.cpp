@@ -112,8 +112,10 @@ FString UQuickSlot::GetESkillTypeToString(ESkillType skillTypeValue)
 	if (!enumPtr)
 	{
 		return FString("Invalid");
+
 	}
 	return enumPtr->GetNameStringByIndex((int32)skillTypeValue);
+	
 }
 
 void UQuickSlot::UpdateCoolDownTime()

@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Widgets/ClosableWnd/DraggableWnd/DraggableWidget/BaseSlot/BaseSlot.h"
+#include "Structures/QuickSlotInfo/QuickSlotInfo.h"
 #include "QuickSlot.generated.h"
 
 UCLASS()
