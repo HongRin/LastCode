@@ -22,6 +22,8 @@ void UFieldRow::NativeConstruct()
 
 	Button_Next->OnClicked.AddDynamic(this, &UFieldRow::NextButtonClicked);
 	Button_Previous->OnClicked.AddDynamic(this, &UFieldRow::PreviousButtonClicked);
+
+
 }
 
 void UFieldRow::UpdateFieldRow(FFieldInfo* fieldInfo)
@@ -102,3 +104,4 @@ void UFieldRow::NextButtonClicked()
 	else PlayAnimation(DifficultyUp);
 	SetDifficulty();
 }
+

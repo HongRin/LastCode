@@ -17,12 +17,18 @@ private :
 private:
 	UPROPERTY(meta = (BindWidget))
 	class UScrollBox* ScrollBox_List;
+
+	UPROPERTY(meta = (BindWidget))
+	class UCanvasPanel* CanvasPanel_Help;
 	
 	UPROPERTY(meta = (BindWidget))
 	class UButton* Button_Previous;
 
 	UPROPERTY(meta = (BindWidget))
 	class UButton* Button_Next;
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* Button_Help;
 
 	float CurrentOffset;
 	float NextOffset;
@@ -46,4 +52,9 @@ private :
 	UFUNCTION()
 	void NextButtonClicked();
 
-}; 
+	UFUNCTION()
+	void HelpButtonHovered();
+
+	UFUNCTION()
+	void HelpButtonOnUnhovered();
+};

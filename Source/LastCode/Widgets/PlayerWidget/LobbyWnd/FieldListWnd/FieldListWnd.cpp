@@ -5,6 +5,7 @@
 
 #include "Widgets/PlayerWidget/LobbyWnd/FieldListWnd/FieldRow/FieldRow.h"
 
+#include "Components/CanvasPanel.h"
 #include "Components/ScrollBox.h"
 #include "Components/Button.h"
 
@@ -26,8 +27,12 @@ void UFieldListWnd::NativeConstruct()
 {
 	Super::NativeConstruct();
 
+	CanvasPanel_Help->SetVisibility(ESlateVisibility::Hidden);
+
 	Button_Previous->OnClicked.AddDynamic(this, &UFieldListWnd::PreviousButtonClicked);
 	Button_Next->OnClicked.AddDynamic(this, &UFieldListWnd::NextButtonClicked);
+	Button_Help->OnHovered.AddDynamic(this, &UFieldListWnd::HelpButtonHovered);
+	Button_Help->OnUnhovered.AddDynamic(this, &UFieldListWnd::HelpButtonOnUnhovered);
 
 	CurrentOffset = ScrollBox_List->GetScrollOffset();
 	NextOffset = 0.0f;
@@ -75,4 +80,14 @@ void UFieldListWnd::NextButtonClicked()
 	NextOffset = CurrentOffset + 352.0f;
 	if (NextOffset >= ScrollBox_List->GetScrollOffsetOfEnd()) 
 		NextOffset = ScrollBox_List->GetScrollOffsetOfEnd();
+}
+
+void UFieldListWnd::HelpButtonHovered()
+{
+	CanvasPanel_Help->SetVisibility(ESlateVisibility::HitTestInvisible);
+}
+
+void UFieldListWnd::HelpButtonOnUnhovered()
+{
+	CanvasPanel_Help->SetVisibility(ESlateVisibility::Hidden);
 }

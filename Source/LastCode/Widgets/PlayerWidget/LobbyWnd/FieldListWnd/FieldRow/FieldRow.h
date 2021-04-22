@@ -39,7 +39,6 @@ private :
 	UPROPERTY(meta = (BindWidget))
 	class UCanvasPanel* CanvasPanel_Lock;
 
-
 	UPROPERTY(meta = (BindWidgetAnim), meta = (AllowPrivateAccess = true))
 	class UWidgetAnimation* DifficultyDown;
 
@@ -62,10 +61,13 @@ private :
 	void SetDifficulty();
 	void SetLock(int32 unLockLevel);
 
+
 private :
 	UFUNCTION()
 	void PreviousButtonClicked();
 
 	UFUNCTION()
 	void NextButtonClicked();
+
+
 };
