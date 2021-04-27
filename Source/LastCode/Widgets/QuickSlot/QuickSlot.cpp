@@ -95,6 +95,7 @@ void UQuickSlot::InitiailzeBind()
 
 	GetManager(UPlayerManager)->GetQuickManager()->ItemRemoveEvent.AddLambda([this](FName code) {
 		int32 index = GetManager(UPlayerManager)->GetInventory()->GetSlotIndexByCode(code);
+		if (GetQuickSlotInfo(QuickSlotkey).SkillCode == code)
 			GetManager(UPlayerManager)->GetInventory()->RemoveItem(index); });
 }
 
@@ -159,8 +160,8 @@ void UQuickSlot::UpdateQuickSlot()
 
 	if (InCode.IsNone())
 	{
-		SlotImageEmpty();
 		Text_Value->SetText(FText::FromString(TEXT("")));
+		SlotImageEmpty();
 	}
 	else
 		UpdateQuickSlotInfoSkill();

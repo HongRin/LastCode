@@ -22,20 +22,19 @@ UQuickManager::UQuickManager()
 
 void UQuickManager::CreateQuickSlotBar(UWidgetControllerWidget* widgetController, EInputModeType changeInputMode, bool bShowCursor)
 {
-	if (IsValid(QuickSlotBar))
-	{
-		QuickSlotBar->RemoveFromParent();
-		UE_LOG(LogTemp, Warning, TEXT("QuickSlotBar is valid"));
-	}
-	else
-	{
-		QuickSlotBar = CreateWidget<UQuickSlotBar>(widgetController, BP_QuickSlotBar);
-		UE_LOG(LogTemp, Warning, TEXT("QuickSlotBar is not valid"));
-	}
+	QuickSlotBar = CreateWidget<UQuickSlotBar>(widgetController, BP_QuickSlotBar);
 
 	widgetController->AddChildWidget(QuickSlotBar, EInputModeType::IM_GameOnly, false, 512.0f, 64.0f);
 	Cast<UCanvasPanelSlot>(QuickSlotBar->Slot)->SetAnchors(FAnchors(0.5f, 0.5f, 0.5f, 0.5f));
 	Cast<UCanvasPanelSlot>(QuickSlotBar->Slot)->SetAlignment(FVector2D(0.5f, -5.595f));
+}
+
+void UQuickManager::ReleaseQuickSlotBar()
+{
+	if (IsValid(QuickSlotBar))
+	{
+		QuickSlotBar->RemoveFromParent();
+	}
 }
 
 void UQuickManager::QuickSlotEventExecution(FKey key)
@@ -52,7 +51,6 @@ void UQuickManager::QuickSlotEventExecution(FKey key)
 				playableCharacter->GetSkillControllerComponent()->PlayQuickSlotkill(
 					GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos[i].SkillCode,
 					GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos[i].SkillType);
-
 			}
 		}
 	}

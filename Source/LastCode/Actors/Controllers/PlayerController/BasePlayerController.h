@@ -28,6 +28,7 @@ public:
 protected:
 	virtual void OnPossess(APawn* aPawn) override;
 
+
 public:
 	FORCEINLINE class UWidgetControllerWidget* GetWidgetControllerWidget() const
 	{

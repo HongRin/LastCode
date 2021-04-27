@@ -33,6 +33,8 @@ public :
 		class UWidgetControllerWidget* widgetController,
 		EInputModeType changeInputMode = EInputModeType::IM_Default, bool bShowCursor = true);
 
+	void ReleaseQuickSlotBar();
+
 public :
 	UFUNCTION()
 	void QuickSlotEventExecution(struct FKey key);

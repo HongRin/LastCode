@@ -22,51 +22,17 @@ void ATutorialLevel::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//if (!IsValid(TipWnd))
-	//{
-	//	TipWnd = CreateWidget<UTipWnd>(GetWorld(), BP_Tip);
-	//	TipWnd->AddToViewport();
-	//	TipWnd->SetExplanation(FText::FromString(TEXT("W,A,S,D 키를 누르시면 이동합니다.")));
-	//}
-	//
-	//PlayableCharacter = Cast<APlayableCharacter>(GetManager(UPlayerManager)->GetPlayableController()->GetPawn());
-	//
-	//ExplanationLevel = 1;
 }
 
 void ATutorialLevel::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//UpdateExplanation();
 }
 
 void ATutorialLevel::UpdateExplanation()
 {
-	//switch (ExplanationLevel)
-	//{
-	//case 1 :
-	//	if (PlayableCharacter->GetVelocity().Size() > 200.0f)
-	//	{
-	//		TipWnd->SetExplanation(FText::FromString(TEXT("Shift 키를 누르시면 달리실 수 있습니다.")));
-	//		ExplanationLevel = 2;
-	//	}
-	//	break;
-	//case 2:
-	//	if (PlayableCharacter->GetVelocity().Size() > 500.0f)
-	//	{
-	//		TipWnd->SetExplanation(FText::FromString(TEXT("Space 키를 누르시면 점프합니다.")));
-	//		ExplanationLevel = 3;
-	//	}
-	//	break;
-	//case 3:
-	//	if (PlayableCharacter->IsInAir())
-	//	{
-	//		TipWnd->SetExplanation(FText::FromString(TEXT("마우스 오른쪽, 왼쪽키로 공격을 하실 수 있습니다.")));
-	//		ExplanationLevel = 4;
-	//	}
-	//	break;
-	//}
+
 }
 
 

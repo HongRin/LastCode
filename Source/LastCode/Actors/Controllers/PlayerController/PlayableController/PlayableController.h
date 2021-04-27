@@ -12,6 +12,7 @@ class LASTCODE_API APlayableController : public ABasePlayerController
 protected:
 	virtual void SetupInputComponent() override;
 	virtual void OnPossess(APawn* aPawn) override;
+	virtual void OnUnPossess() override;
 
 private:
 	void RegisterToggleEvent();

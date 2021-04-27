@@ -14,7 +14,7 @@ ABasePlayerController::ABasePlayerController()
 	static ConstructorHelpers::FClassFinder<UWidgetControllerWidget> BP_WIDGET_CONTROLLER_WIDGET(
 		TEXT("WidgetBlueprint'/Game/Resources/Blueprints/Widgets/WidgetController/BP_WidgetController.BP_WidgetController_C'"));
 	if (BP_WIDGET_CONTROLLER_WIDGET.Succeeded()) BP_WidgetController = BP_WIDGET_CONTROLLER_WIDGET.Class;
-	else { UE_LOG(LogTemp, Error, TEXT("BasePlayerController.cpp :: %d LINE :: BP_WIDGET_CONTROLLER_WIDGET is not loaded!"), __LINE__); }
+	else  UE_LOG(LogTemp, Error, TEXT("BasePlayerController.cpp :: %d LINE :: BP_WIDGET_CONTROLLER_WIDGET is not loaded!"), __LINE__); 
 
 	WndToggler = CreateDefaultSubobject<UWndTogglerComponent>(TEXT("WND_TOGGLER"));
 
@@ -33,6 +33,7 @@ void ABasePlayerController::OnPossess(APawn* aPawn)
 	WidgetControllerWidget->AddToViewport();
 
 }
+
 
 void ABasePlayerController::ChangeViewTarget(AActor* targetActor, float blendTime)
 {

@@ -32,6 +32,12 @@ void APlayableController::OnPossess(APawn* aPawn)
 	GetManager(UPlayerManager)->GetQuickManager()->CreateQuickSlotBar(GetWidgetControllerWidget());
 
 }
+void APlayableController::OnUnPossess()
+{
+	Super::OnUnPossess();
+
+	GetManager(UPlayerManager)->GetQuickManager()->ReleaseQuickSlotBar();
+}
 
 void APlayableController::RegisterToggleEvent()
 {

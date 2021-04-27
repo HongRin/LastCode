@@ -16,7 +16,6 @@ ALobbyLevel::ALobbyLevel()
 	static ConstructorHelpers::FClassFinder<ULobbyWnd> BP_LOBBY_WND(
 		TEXT("WidgetBlueprint'/Game/Resources/Blueprints/Widgets/PlayerWidget/BP_PlayerLoobyWnd.BP_PlayerLoobyWnd_C'"));
 	if (BP_LOBBY_WND.Succeeded()) BP_LobbyWnd = BP_LOBBY_WND.Class;
-	UE_LOG(LogTemp, Warning, TEXT("ALobbyLevel.cpp::%d::LINE:: BP_LOBBY_WND is not loaded!"), __LINE__);
 }
 
 void ALobbyLevel::BeginPlay()
@@ -32,4 +31,6 @@ void ALobbyLevel::BeginPlay()
 		Cast<UCanvasPanelSlot>(LobbyWnd->Slot)->SetAnchors(FAnchors(1.0f, 1.0f, 1.0f, 1.0f));
 		Cast<UCanvasPanelSlot>(LobbyWnd->Slot)->SetAlignment(FVector2D(1.0f, 1.2f));
 	}
+
+
 }
