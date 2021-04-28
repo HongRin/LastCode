@@ -63,7 +63,6 @@ int32 UInventory::GetSlotIndexByCode(FName code) const
 	{
 		if (GetManager(UPlayerManager)->GetPlayerInfo()->InventoryItemInfos[i].ItemCode == code)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("return code :: %d "), i);   
 			return i;
 		}
 	}
