@@ -11,6 +11,7 @@
 
 #include "Widgets/WidgetControllerWidget/WidgetControllerWidget.h"
 #include "Widgets/PlayerWidget/LobbyWnd/FieldListWnd/FieldListWnd.h"
+#include "Widgets/ClosableWnd/DraggableWnd/ShopWnd/ShopWnd.h"
 
 ULobbyWnd::ULobbyWnd(const FObjectInitializer& ObjInitializer) :
 	Super(ObjInitializer)
@@ -19,6 +20,11 @@ ULobbyWnd::ULobbyWnd(const FObjectInitializer& ObjInitializer) :
 		TEXT("WidgetBlueprint'/Game/Resources/Blueprints/Widgets/PlayerWidget/FieldList/BP_FieldListWnd.BP_FieldListWnd_C'"));
 	if (BP_FIELD_LIST_WND.Succeeded()) BP_FieldListWnd = BP_FIELD_LIST_WND.Class;
 	else UE_LOG(LogTemp, Error, TEXT("ULobbyWnd.cpp::%d::LINE:: BP_FIELD_LIST_WND is not loaed!"), __LINE__);
+
+	static ConstructorHelpers::FClassFinder<UShopWnd> BP_SHOP_WND(
+		TEXT("WidgetBlueprint'/Game/Resources/Blueprints/Widgets/ClosableWnd/DraggableWnd/Shop/BP_ShopWnd.BP_ShopWnd_C'"));
+	if (BP_SHOP_WND.Succeeded()) BP_ShopWnd = BP_SHOP_WND.Class;
+	else UE_LOG(LogTemp, Error, TEXT("ULobbyWnd.cpp::%d::LINE:: BP_SHOP_WND is not loaed!"), __LINE__);
 }
 
 void ULobbyWnd::NativeConstruct()
@@ -26,6 +32,9 @@ void ULobbyWnd::NativeConstruct()
 	Super::NativeConstruct();
 
 	Button_FieldList->OnClicked.AddDynamic(this, &ULobbyWnd::FieldListButtonClicked);
+
+	Button_Shop->OnClicked.AddDynamic(this, &ULobbyWnd::ShopButtonClicked);
+
 
 	WidgetController = GetManager(UPlayerManager)->GetPlayableController()->GetWidgetControllerWidget();
 
@@ -64,7 +73,35 @@ void ULobbyWnd::ToggleFieldListWnd()
 	else CreateFieldListWnd();
 }
 
+UShopWnd* ULobbyWnd::CreateShopWnd()
+{
+	if (IsValid(ShopWnd)) return ShopWnd;
+	ShopWnd = Cast<UShopWnd>(WidgetController->CreateWnd(BP_ShopWnd));
+
+	return ShopWnd;
+}
+
+void ULobbyWnd::CloseShopWnd()
+{
+	if (IsValid(ShopWnd))
+	{
+		ShopWnd->CloseThisWnd();
+		ShopWnd = nullptr;
+	}
+}
+
+void ULobbyWnd::ToggleShopWnd()
+{
+	if (IsValid(ShopWnd)) CloseShopWnd();
+	else CreateShopWnd();
+}
+
 void ULobbyWnd::FieldListButtonClicked()
 {
 	ToggleFieldListWnd();
+}
+
+void ULobbyWnd::ShopButtonClicked()
+{
+	ToggleShopWnd();
 }
