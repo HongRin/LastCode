@@ -76,8 +76,9 @@ void UQuickSlot::InitiailzeBind()
 			{
 				if (SkillType == ESkillType::SKT_ITEM)
 				{
-					if (GetManager(UPlayerManager)->GetQuickManager()->ItemRemoveEvent.IsBound())
-						GetManager(UPlayerManager)->GetQuickManager()->ItemRemoveEvent.Broadcast(InCode);
+					int32 index = GetManager(UPlayerManager)->GetInventory()->GetSlotIndexByCode(code);
+					if (GetQuickSlotInfo(QuickSlotkey).SkillCode == code)
+						GetManager(UPlayerManager)->GetInventory()->RemoveItem(index);
 						UpdateQuickSlot();
 				}
 				StartTime = GetWorld()->GetTimeSeconds();
@@ -93,10 +94,13 @@ void UQuickSlot::InitiailzeBind()
 				Text_Value->SetText(FText::FromString(FString::Printf(TEXT("Lv %d"), skilLevel)));
 		});
 
-	GetManager(UPlayerManager)->GetQuickManager()->ItemRemoveEvent.AddLambda([this](FName code) {
-		int32 index = GetManager(UPlayerManager)->GetInventory()->GetSlotIndexByCode(code);
-		if (GetQuickSlotInfo(QuickSlotkey).SkillCode == code)
-			GetManager(UPlayerManager)->GetInventory()->RemoveItem(index); });
+	GetManager(UPlayerManager)->GetQuickManager()->ItemCountChangeEvent.AddLambda(
+		[this](FName code, int32 count)
+		{
+			if (GetQuickSlotInfo(QuickSlotkey).SkillCode == code)
+
+				UpdateQuickSlot();
+		});
 }
 
 void UQuickSlot::LogPlayerQuickSlotInfo()
@@ -184,7 +188,6 @@ void UQuickSlot::UpdateQuickSlotInfoSkill()
 			{
 				if (skillLevel <= 0) SetQuickSlotEmpty();
 				Text_Value->SetText(FText::FromString(FString::FromInt(skillLevel)));
-
 			}
 			else
 			{
@@ -206,7 +209,6 @@ void UQuickSlot::SwapQuickSlot(UQuickSlot* firstQuickSlot, UQuickSlot* SecondQui
 	firstQuickSlot->UpdateQuickSlot();
 	SecondQuickSlot->UpdateQuickSlot();
 }
-
 
 FQuickSlotInfo UQuickSlot::GetQuickSlotInfo(FName quickSlotkey) const
 {

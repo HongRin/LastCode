@@ -57,7 +57,7 @@ void UShopWnd::InitializeSaleItem()
 		{
 			UShopItemWidget* shopItemWidget = CreateWidget<UShopItemWidget>(this, BP_ShopItemWidget);
 			GridPanel_SaleList->AddChild(shopItemWidget);
-			shopItemWidget->UpdateSaleItem(saleItemInfo[i]);
+			shopItemWidget->UpdateSaleItem(saleItemInfo[i], this);
 			UWidgetControllerWidget::SortGridPanelElem(shopItemWidget, maxColumnCount, currentColumnCount);
 		}
 	}
@@ -68,6 +68,8 @@ void UShopWnd::InitializeSaleItem()
 void UShopWnd::SaleItem(class UInventoryWnd* inventoryWnd, UItemSlot* itemSlot)
 {
 	auto tradeWnd = CreateTradeWnd(itemSlot, false);
+
+
 	if (!IsValid(tradeWnd)) return;
 
 	tradeWnd->OnTradeButtonClickedEvent.AddLambda(
@@ -110,10 +112,22 @@ UTradeWnd* UShopWnd::CreateTradeWnd(UItemSlot* connectedItemSlot, bool bSaleItem
 
 	TradeWnd = CreateWidget<UTradeWnd>(this, BP_TradeWnd);
 
+	CanvasPanel_Trade->AddChild(TradeWnd);
+
+	Cast<UCanvasPanelSlot>(TradeWnd->Slot)->SetSize(FVector2D(300.0f, 200.0f));
+	Cast<UCanvasPanelSlot>(TradeWnd->Slot)->SetAnchors(FAnchors(0.5f, 0.5f, 0.5f, 0.5f));
+	Cast<UCanvasPanelSlot>(TradeWnd->Slot)->SetAlignment(FVector2D(0.5f, 0.5f));
+
 	// 교환 창 초기화
-	TradeWnd->InitializeTradeWnd(connectedItemSlot, bSaleItem);
+	TradeWnd->InitializeTradeWnd(connectedItemSlot, bSaleItem, this);
 
 	return TradeWnd;
+}
+
+void UShopWnd::CloseTradeWnd()
+{
+	TradeWnd->RemoveFromParent();
+	TradeWnd = nullptr;
 }
 
 void UShopWnd::FloatingInventoryWnd()
@@ -151,7 +165,7 @@ void UShopWnd::FloatingInventoryWnd()
 	{
 		slot->OnMouseRightButtonClicked.AddLambda(
 			[this, slot, playerInventoryWnd](ESlotType itemSlotType)
-			{	UE_LOG(LogTemp, Warning, TEXT("SaleItem"));
+			{	if (IsValid(TradeWnd)) return;
 				SaleItem(playerInventoryWnd, slot); });
 	}
 }

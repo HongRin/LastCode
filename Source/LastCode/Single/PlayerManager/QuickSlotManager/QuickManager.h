@@ -16,8 +16,8 @@ class LASTCODE_API UQuickManager : public UObject
 
 public :
 	OnQuickSlotEvevtSignature QuickSlotEventStarted;
-	OnQuickSlotEvevtSignature ItemRemoveEvent;
 	OnQuickSlotChangedSignature SkillLevelUpdateEvent;
+	OnQuickSlotChangedSignature ItemCountChangeEvent;
 
 private :
 	TSubclassOf<class UQuickSlotBar> BP_QuickSlotBar;

@@ -9,7 +9,6 @@ FPlayerInfo::FPlayerInfo()
 	Atk = 0.0f;
 	MaxStamina = 100.0f;
 	Stamina = 30.0f;
-	Money = 10000;
 	SkillPoint = 8;
 
 	QuickSlotInfos.Add(FQuickSlotInfo(TEXT("One"), FText::FromString(TEXT("1"))));
@@ -26,12 +25,7 @@ FPlayerInfo::FPlayerInfo()
 	for (int32 i = 0; i < InventorySlotCount; ++i)
 		InventoryItemInfos.Add(FItemSlotInfo());
 
-	InventoryItemInfos[1] = (FItemSlotInfo(FName(TEXT("60000")), 3));
-	InventoryItemInfos[12] = (FItemSlotInfo(FName(TEXT("60001")), 10));
-	InventoryItemInfos[2] = (FItemSlotInfo(FName(TEXT("60002")), 1));
-	InventoryItemInfos[3] = (FItemSlotInfo(FName(TEXT("60003")), 1));
-
 	// TEST
-	Silver = 10000;
+	Silver = 30000;
 
 }

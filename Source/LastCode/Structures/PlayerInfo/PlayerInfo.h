@@ -50,10 +50,6 @@ public:
 	UPROPERTY()
 	EStaminaType StaminaType;
 
-	// ¼ÒÁö±Ý
-	UPROPERTY()
-	int32 Money;
-
 	UPROPERTY()
 	TArray<FSkillInfo> SkillInfo;
 

@@ -40,6 +40,14 @@ public:
 			this->ItemCount != itemSlotInfo.ItemCount;
 	}
 
+	// 같은 아이템인지 확인합니다.
+	FORCEINLINE bool IsSameItem(const FItemSlotInfo& itemSlotInfo) const
+	{
+		if (itemSlotInfo.IsEmpty()) return false;
+
+		return (ItemCode == itemSlotInfo.ItemCode);
+	}
+
 	// 해당 데이터가 비어있는지 확인합니다.
 	FORCEINLINE bool IsEmpty() const
 	{

@@ -8,7 +8,7 @@ public class LastCode : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "AIModule", "NavigationSystem", "GamePlayTasks", "UMG", "SlateCore", "Json" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "AIModule", "NavigationSystem", "GamePlayTasks", "UMG", "Slate", "SlateCore", "Json" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

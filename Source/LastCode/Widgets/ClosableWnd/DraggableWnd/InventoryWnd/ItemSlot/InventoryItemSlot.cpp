@@ -60,10 +60,6 @@ void UInventoryItemSlot::NativeConstruct()
 				GetManager(UPlayerManager)->GetInventory()->SwapItem(originatedDragSlot, this);
 			}
 		});
-
-	GetManager(UPlayerManager)->GetInventory()->OnInventorySlotChanged.AddUObject(this, &UInventoryItemSlot::UpdateInventoryItemSlot);
-
-
 }
 
 void UInventoryItemSlot::InitializeItemSlot(ESlotType slotType, FName itemCode, ESkillType skillType, int32 itemSlotIndex)
@@ -85,12 +81,6 @@ void UInventoryItemSlot::UpdateInventoryItemSlot()
 void UInventoryItemSlot::UpdateItemCountText()
 {
 	auto itemSlotInfo = GetManager(UPlayerManager)->GetInventory()->GetItemSlotInfo(ItemSlotIndex);
-
-	for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->SkillInfo.Num(); ++i)
-	{
-		if (GetManager(UPlayerManager)->GetPlayerInfo()->SkillInfo[i].SkillCode == InCode)
-			GetManager(UPlayerManager)->GetPlayerInfo()->SkillInfo[i].SkillLevel = itemSlotInfo->ItemCount;
-	}
 
 	SetSlotItemCount(itemSlotInfo->ItemCount);
 }

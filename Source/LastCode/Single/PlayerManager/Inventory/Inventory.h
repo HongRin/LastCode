@@ -51,10 +51,21 @@ public:
 	// 인벤토리 아이템을 교체합니다.
 	void SwapItem(class UInventoryItemSlot* first, class UInventoryItemSlot* second);
 
+	// 아이템을 인벤토리에 추가합니다.
+	bool AddItem(FItemSlotInfo& newItemSlotInfo);
+
+	// 동일한 아이템을 합칩니다.
+	void MergeItem(class UInventoryItemSlot* ori, class UInventoryItemSlot* target);
 
 	// 아이템을 인벤토리에서 제거합니다.
 	/// - itemSlotIndex : 제거할 슬롯 인덱스를 전달합니다.
 	/// - removeCount : 제거할 개수를 전달합니다.
 	void RemoveItem(int32 itemSlotIndex, int32 removeCount = 1);
+
+	void UpdateSkillItemCount(FName itemCode, int32 removeCount = 1);
+
+public:
+	FORCEINLINE class UInventoryWnd* GetInventoryWnd() const
+	{ return InventoryWnd; }
 
 };

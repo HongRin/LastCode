@@ -21,6 +21,9 @@ private :
 	UPROPERTY(meta = (BindWidget))
 	class UGridPanel* GridPanel_SaleList;
 
+	UPROPERTY(meta = (BindWidget))
+	class UCanvasPanel* CanvasPanel_Trade;
+
 public :
 	UShopWnd(const FObjectInitializer& ObjInitializer);
 
@@ -35,6 +38,8 @@ private :
 
 public :
 	class UTradeWnd* CreateTradeWnd(class UItemSlot* connectedItemSlot, bool bSaleItem);
+
+	void CloseTradeWnd();
 
 public:
 	// 인벤토리 창을 상점 창 우측에 띄웁니다.

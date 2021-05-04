@@ -75,6 +75,27 @@ UInventoryItemSlot* UInventoryWnd::CreateItemSlot()
 	return newItemSlot;
 }
 
+void UInventoryWnd::UpdateInventoryItemSlots()
+{
+	FPlayerInfo* playerInfo = GetManager(UPlayerManager)->GetPlayerInfo();
+
+	TArray<FItemSlotInfo>& inventoryIteminfos =
+		playerInfo->InventoryItemInfos;
+
+	for (int32 i = 0; i < ItemSlots.Num(); ++i)
+	{
+		auto itemSlot = ItemSlots[i];
+
+		itemSlot->SetItemInfo(inventoryIteminfos[i].ItemCode);
+
+		itemSlot->UpdateInventoryItemSlot();
+
+		itemSlot->InitializeItemSlot(
+			ESlotType::SLT_INVENTORY,
+			playerInfo->InventoryItemInfos[i].ItemCode, ESkillType::SKT_ITEM, i);
+	}
+}
+
 void UInventoryWnd::UpdateSilver()
 {
 	FText silverToText = FText::FromString(FString::FromInt(GetManager(UPlayerManager)->GetPlayerInfo()->Silver));

@@ -37,16 +37,23 @@ private :
 private :
 	class UItemSlot* ConnectedItemSlot;
 
+	class UShopWnd* ShopWnd;
+
+	bool IsSaleItem;
+
 protected :
 	virtual void NativeConstruct() override;
 
 public :
-	void InitializeTradeWnd(class UItemSlot* connectedItemSlot, bool bSaleItem);
+	void InitializeTradeWnd(class UItemSlot* connectedItemSlot, bool bSaleItem, class UShopWnd* shopWnd);
 
 
 private :
 	UFUNCTION()
 	void OnTradeButtonClicked();
+
+	UFUNCTION()
+	void OnTradeCountTextChanged(const FText& Text);
 
 public :
 	UFUNCTION()

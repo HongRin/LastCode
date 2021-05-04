@@ -39,6 +39,9 @@ private:
 	class UInventoryItemSlot* CreateItemSlot();
 
 public:
+	// 인벤토리 아이템 슬롯들을 갱신합니다.
+	void UpdateInventoryItemSlots();
+
 	// 소지금을 갱신합니다.
 	void UpdateSilver();
 
