@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Enums/StaminaType.h"
+#include "Enums/ClearType.h"
 #include "Structures/SkillInfo/SkillInfo.h"
 #include "Structures/SkillReinforceInfo/SkillReinforceInfo.h"
 #include "Structures/QuickSlotInfo/QuickSlotInfo.h"
@@ -57,6 +58,9 @@ public:
 	TArray<FSkillInfo> SkillInfo;
 
 	UPROPERTY()
+	int32 QuickSlotCount;
+
+	UPROPERTY()
 	TArray<FQuickSlotInfo> QuickSlotInfos;
 
 	// 인벤토리 슬롯 개수
@@ -70,6 +74,9 @@ public:
 	// 소지금
 	UPROPERTY()
 	int32 Silver;
+
+	UPROPERTY()
+	EClearType ClearType;
 
 	FPlayerInfo();
 

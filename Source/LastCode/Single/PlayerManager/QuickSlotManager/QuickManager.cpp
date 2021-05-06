@@ -41,7 +41,7 @@ void UQuickManager::QuickSlotEventExecution(FKey key)
 {
 	if (!key.IsGamepadKey())
 	{
-		for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos.Num(); ++i)
+		for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotCount; ++i)
 		{
 			if (GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos[i].QuickSlotKey == key.GetFName())
 			{

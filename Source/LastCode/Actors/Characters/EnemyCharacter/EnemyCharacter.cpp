@@ -9,6 +9,8 @@
 
 #include "Level/DungeonLevel.h"
 
+#include "Structures/ItemInfo/ItemInfo.h"
+
 #include "Single/GameInstance/LCGameInstance.h"
 #include "Single/PlayerManager/PlayerManager.h"
 
@@ -19,6 +21,10 @@ AEnemyCharacter::AEnemyCharacter()
 	static ConstructorHelpers::FObjectFinder<UDataTable> DT_ENEMY_INFO(
 		TEXT("DataTable'/Game/Resources/DataTable/DT_EnemyInfo.DT_EnemyInfo'"));
 	if (DT_ENEMY_INFO.Succeeded()) DT_EnemyInfo = DT_ENEMY_INFO.Object;
+
+	static ConstructorHelpers::FObjectFinder<UDataTable> DT_ITEM_INFO(
+		TEXT("DataTable'/Game/Resources/DataTable/DT_ItemInfo.DT_ItemInfo'"));
+	if (DT_ITEM_INFO.Succeeded()) DT_ItemInfo = DT_ITEM_INFO.Object;
 
 	AIControllerClass = AEnemyController::StaticClass();
 
@@ -156,7 +162,28 @@ void AEnemyCharacter::EnemyRebound(FVector direction, float power)
 void AEnemyCharacter::EnemyDie()
 {
 	DungeonLevel->RemoveEnemyCharacters(this);
+	DungeonLevel->AddRewardExp(EnemyInfo.Exp);
+	DungeonLevel->AddRewardSilver(DropSilver());
+	DropItem();
+	DungeonLevel->DungeonClear();
 	Destroy();
+}
+
+int32 AEnemyCharacter::DropSilver()
+{
+	int32 silver = FMath::FRandRange(EnemyInfo.MinDropSilver, EnemyInfo.MaxDropSilver);
+	return silver;
+}
+
+void AEnemyCharacter::DropItem()
+{
+	for (int i = 0; i < EnemyInfo.DropItemCode.Num(); ++i)
+	{
+		FString contextStirng;
+		FItemInfo* itemInfo = DT_ItemInfo->FindRow<FItemInfo>(EnemyInfo.DropItemCode[i], contextStirng);
+		if (itemInfo->DropPercent < FMath::FRandRange(0.0f, 100.0f))
+			DungeonLevel->SetDropItems(itemInfo->ItemCode);
+	}
 }
 
 bool AEnemyCharacter::IsMovable() const

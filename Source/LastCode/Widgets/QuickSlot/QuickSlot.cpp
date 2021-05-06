@@ -38,6 +38,8 @@ void UQuickSlot::InitiailzeBind()
 			dragImage->SetBrushFromTexture(Cast<UTexture2D>(GetSlotImage()->Brush.GetResourceObject()));
 
 			auto Logop = Cast<UQuickSlot>(op->DraggingSlot);
+
+			LogPlayerQuickSlotInfo();
 		});
 
 	OnSlotDragFinished.AddLambda(
@@ -72,12 +74,12 @@ void UQuickSlot::InitiailzeBind()
 	GetManager(UPlayerManager)->GetQuickManager()->QuickSlotEventStarted.AddLambda(
 		[this](FName code)
 		{
-			if (GetQuickSlotInfo(QuickSlotkey).SkillCode == code)
+			if (InCode == code)
 			{
 				if (SkillType == ESkillType::SKT_ITEM)
 				{
 					int32 index = GetManager(UPlayerManager)->GetInventory()->GetSlotIndexByCode(code);
-					if (GetQuickSlotInfo(QuickSlotkey).SkillCode == code)
+					if (InCode == code)
 						GetManager(UPlayerManager)->GetInventory()->RemoveItem(index);
 						UpdateQuickSlot();
 				}
@@ -97,7 +99,7 @@ void UQuickSlot::InitiailzeBind()
 	GetManager(UPlayerManager)->GetQuickManager()->ItemCountChangeEvent.AddLambda(
 		[this](FName code, int32 count)
 		{
-			if (GetQuickSlotInfo(QuickSlotkey).SkillCode == code)
+			if (InCode == code)
 
 				UpdateQuickSlot();
 		});
@@ -212,7 +214,7 @@ void UQuickSlot::SwapQuickSlot(UQuickSlot* firstQuickSlot, UQuickSlot* SecondQui
 
 FQuickSlotInfo UQuickSlot::GetQuickSlotInfo(FName quickSlotkey) const
 {
-	for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos.Num(); ++i)
+	for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotCount; ++i)
 	{
 		if (GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos[i].QuickSlotKey == quickSlotkey)
 		{
@@ -225,7 +227,7 @@ FQuickSlotInfo UQuickSlot::GetQuickSlotInfo(FName quickSlotkey) const
 
 FQuickSlotInfo UQuickSlot::GetCodeToQuickSlotInfo(FName code) const
 {
-	for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos.Num(); ++i)
+	for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotCount; ++i)
 	{
 		if (GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos[i].SkillCode == code)
 		{
@@ -240,7 +242,7 @@ void UQuickSlot::SetQuickSlotInfo(FQuickSlotInfo quickSlotInfo)
 {
 	FName quickSlotKey = QuickSlotkey.IsNone() ? quickSlotInfo.QuickSlotKey : QuickSlotkey;
 
-	for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos.Num(); ++i)
+	for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotCount; ++i)
 	{
 		if (GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos[i].QuickSlotKey == quickSlotKey)
 		{

@@ -40,6 +40,9 @@ private:
 	UPROPERTY()
 	class UDataTable* DT_EnemyInfo;
 
+	UPROPERTY()
+	class UDataTable* DT_ItemInfo;
+
 	class ADungeonLevel* DungeonLevel;
 
 	FEnemyInfo EnemyInfo;
@@ -96,6 +99,11 @@ public:
 	void EnemyRebound(FVector direction, float power);
 
 	void EnemyDie();
+
+private :
+	int32 DropSilver();
+
+	void DropItem();
 
 public:
 	FORCEINLINE virtual void SetGenericTeamId(const FGenericTeamId& TeamID) override

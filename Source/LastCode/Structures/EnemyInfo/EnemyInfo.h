@@ -35,7 +35,13 @@ public:
 	float AtkRange;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (UIMin = "0.0", UIMax = "100000.0", ClampMin = "0.0", ClampMax = "100000.0"))
-	int32 DropSilver;
+	int32 MinDropSilver;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (UIMin = "0.0", UIMax = "100000.0", ClampMin = "0.0", ClampMax = "100000.0"))
+	int32 MaxDropSilver;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<FName> DropItemCode;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (UIMin = "0.0", UIMax = "100000.0", ClampMin = "0.0", ClampMax = "100000.0"))
 	int32 Exp;

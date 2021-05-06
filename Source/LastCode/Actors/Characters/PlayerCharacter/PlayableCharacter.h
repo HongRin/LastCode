@@ -68,6 +68,8 @@ public:
 	virtual float GetHp() override;
 	virtual void SetHp(float value) override;
 
+	virtual void OnCharacterDie() override;
+
 	float GetMaxStamina();
 	float GetStamina();
 	void SetStamina(float value);

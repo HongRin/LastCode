@@ -22,10 +22,13 @@ FPlayerInfo::FPlayerInfo()
 
 	InventorySlotCount = 50;
 
+	QuickSlotCount = 8;
+
 	for (int32 i = 0; i < InventorySlotCount; ++i)
 		InventoryItemInfos.Add(FItemSlotInfo());
 
 	// TEST
 	Silver = 30000;
 
+	ClearType = EClearType::CT_None;
 }

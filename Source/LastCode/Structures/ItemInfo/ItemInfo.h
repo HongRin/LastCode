@@ -49,6 +49,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Basic")
 	int32 ActivationCharacterLevel;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Basic")
+	float DropPercent;
 			
 public:
 	FORCEINLINE bool IsEmpty() const

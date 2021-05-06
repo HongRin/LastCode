@@ -10,6 +10,8 @@
 #include "Single/GameInstance/LCGameInstance.h"
 #include "Single/PlayerManager/PlayerManager.h"
 
+#include "Level/DungeonLevel.h"
+
 #include "GameFramework/PlayerInput.h"
 
 
@@ -39,7 +41,6 @@ APlayableCharacter::APlayableCharacter()
 	InitializeComponent();
 
 	bIsMoveable = true;
-
 }
 
 void APlayableCharacter::BeginPlay()
@@ -57,6 +58,7 @@ void APlayableCharacter::BeginPlay()
 
 	QuickManager = GetManager(UPlayerManager)->GetQuickManager();
 
+	SetHp(GetMaxHp());
 }
 
 void APlayableCharacter::Tick(float DeltaTime)
@@ -121,6 +123,14 @@ void APlayableCharacter::SetHp(float value)
 {
 	GetManager(UPlayerManager)->GetPlayerInfo()->Hp = value;
 }
+
+void APlayableCharacter::OnCharacterDie()
+{
+	Super::OnCharacterDie();
+
+	Cast<ADungeonLevel>(GetWorld()->GetLevelScriptActor())->DungeonClear();
+}
+
 float APlayableCharacter::GetMaxStamina()
 {
 	return GetManager(UPlayerManager)->GetPlayerInfo()->MaxStamina;
