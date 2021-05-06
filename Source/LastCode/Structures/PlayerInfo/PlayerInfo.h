@@ -42,7 +42,10 @@ public:
 	float Stamina;
 
 	UPROPERTY()
-	float Exp;
+	int32 Exp;
+
+	UPROPERTY()
+	int32 MaxExp;
 
 	UPROPERTY()
 	int32 SkillPoint;

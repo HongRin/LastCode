@@ -19,4 +19,6 @@ void UPlayableCharacterAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	VelocityLength = Owner->GetVelocity().Size();
 
 	bIsInAir = Owner->IsInAir();
+
+	bIsDie = Owner->IsDie();
 }

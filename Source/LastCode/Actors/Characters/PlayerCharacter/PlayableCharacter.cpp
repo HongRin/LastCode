@@ -20,6 +20,8 @@ APlayableCharacter::APlayableCharacter()
 	// 컨트롤러 Yaw 회전을 사용하지 않도록 설정합니다.
 	bUseControllerRotationYaw = false;
 
+	SetGenericTeamId(TEAM_PLAYER);
+
 	// 이동 방향으로 회전합니다.
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 720.0f, 0.0f);
@@ -37,6 +39,7 @@ APlayableCharacter::APlayableCharacter()
 	InitializeComponent();
 
 	bIsMoveable = true;
+
 }
 
 void APlayableCharacter::BeginPlay()
@@ -50,7 +53,10 @@ void APlayableCharacter::BeginPlay()
 
 	LoadAsset();
 
+	Tags.Add(TEXT("Player"));
+
 	QuickManager = GetManager(UPlayerManager)->GetQuickManager();
+
 }
 
 void APlayableCharacter::Tick(float DeltaTime)
@@ -94,6 +100,11 @@ void APlayableCharacter::OnTakeDamage(AActor* DamagedActor, float Damage, const 
 		DamageType,
 		InstigatedBy,
 		DamageCauser);
+	
+	if (GetManager(UPlayerManager)->GetPlayerStateManager()->OnUpdateHp.IsBound())
+		GetManager(UPlayerManager)->GetPlayerStateManager()->OnUpdateHp.Broadcast();
+
+	PlayAnimMontage(HitAnim);
 }
 
 float APlayableCharacter::GetMaxHp()
@@ -211,5 +222,5 @@ UPlayerManager* APlayableCharacter::GetPlayerManager()
 
 bool APlayableCharacter::IsMoveable()
 {
-	return bIsMoveable && !IsInAir() && !SkillController->IsAttacking();
+	return bIsMoveable && !IsInAir() && !SkillController->IsAttacking() && !IsDie();
 }

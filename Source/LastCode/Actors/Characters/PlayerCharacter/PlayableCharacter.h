@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Actors/Characters/PlayerCharacter/Preview/PreviewCharacter.h"
+#include "GenericTeamAgentInterface.h"
 #include "PlayableCharacter.generated.h"
 
 #ifndef GROUND_MOVE_SPEED
@@ -10,7 +11,8 @@
 #endif
 
 UCLASS()
-class LASTCODE_API APlayableCharacter : public APreviewCharacter
+class LASTCODE_API APlayableCharacter : public APreviewCharacter,
+	public IGenericTeamAgentInterface
 {
 	GENERATED_BODY()
 
@@ -39,6 +41,8 @@ private:
 
 #pragma region StateValue
 	bool bIsMoveable;
+	
+	FGenericTeamId TeamId;
 #pragma endregion
 
 public:
@@ -104,6 +108,11 @@ public:
 	class UPlayerManager* GetPlayerManager();
 
 	bool IsMoveable();
+
+	FORCEINLINE virtual void SetGenericTeamId(const FGenericTeamId& TeamID) override
+	{ this->TeamId = TeamID; }
+	FORCEINLINE virtual FGenericTeamId GetGenericTeamId() const override
+	{ return TeamId; }
 
 	FORCEINLINE void ProhibitMove()
 	{ bIsMoveable = false; }

@@ -13,3 +13,11 @@
 #define CUSTOM_LOG_DEFINE
 #define LOG(_log_, ...) UE_LOG(LogTemp, Warning, _log_, ##__VA_ARGS__)
 #endif
+
+
+#ifndef TEAM_DEFINE
+#define TEAM_DEFINE
+
+#define TEAM_PLAYER 10
+#define TEAM_MONSTER 20
+#endif

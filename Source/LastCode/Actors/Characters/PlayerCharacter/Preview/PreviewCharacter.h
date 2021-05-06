@@ -28,6 +28,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "SkeletalMesh", meta = (AllowPrivateAccess = "true"))
 	class USkeletalMeshComponent* MaskMesh;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Anim", meta = (AllowPrivateAccess = "true"))
+	class UAnimMontage* HitAnim;
+
 	FInitializePlayerInfo* InitPlayerInfo;
 
 private :

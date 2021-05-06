@@ -78,6 +78,10 @@ void APreviewCharacter::InitializeAsset()
 	if(IsValid(initPlayerInfo->PreviewAnimInstancePath))
 	GetMesh()->SetAnimClass(initPlayerInfo->PreviewAnimInstancePath);
 	else UE_LOG(LogTemp, Error, TEXT("APreviewCharacter.cpp::%d::LINE:: initPlayerInfo->PreviewAnimInstancePath is not loaded !"));
+
+	if (IsValid(initPlayerInfo->HitAnimPath))
+		HitAnim = Cast<UAnimMontage>(GetManager(FStreamableManager)->LoadSynchronous(initPlayerInfo->HitAnimPath));
+	else UE_LOG(LogTemp, Error, TEXT("APreviewCharacter.cpp::%d::LINE:: HitAnimPath is not loaded !"));
 }
 
 void APreviewCharacter::InitializeComponent()

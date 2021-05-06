@@ -19,6 +19,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Owner Properties")
 		bool bIsInAir;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Owner Properties")
+		bool bIsDie;
+
 public:
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 };

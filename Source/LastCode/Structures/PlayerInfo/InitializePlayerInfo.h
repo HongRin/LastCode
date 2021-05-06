@@ -37,6 +37,6 @@ public :
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<UPlayableCharacterAnimInstance> AnimInstancePath;
 
-	// 이 캐릭터가 기본적으로 실행할 수 있는 스킬 코드들
-
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UAnimMontage* HitAnimPath;
 };

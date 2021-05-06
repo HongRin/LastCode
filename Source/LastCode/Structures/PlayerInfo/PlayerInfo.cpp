@@ -6,7 +6,7 @@ FPlayerInfo::FPlayerInfo()
 	Level = 10;
 	Hp = 200.0f;
 	MaxHp = 400.0f;
-	Atk = 0.0f;
+	Atk = 100.0f;
 	MaxStamina = 100.0f;
 	Stamina = 30.0f;
 	SkillPoint = 8;

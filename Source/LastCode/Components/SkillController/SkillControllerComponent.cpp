@@ -126,7 +126,7 @@ void USkillControllerComponent::PlayUseItem(FName skillCode)
 
 void USkillControllerComponent::LRegularAttack()
 {
-	if (PlayableCharacter->IsInAir() || bIsDash || IsSkillable()) return;
+	if (PlayableCharacter->IsInAir() || bIsDash || IsSkillable() || PlayableCharacter->IsDie()) return;
 
 	if (OnRRegularAttackFinished.IsBound())
 		OnRRegularAttackFinished.Broadcast();
@@ -148,7 +148,7 @@ void USkillControllerComponent::LRegularAttack()
 
 void USkillControllerComponent::RRegularAttack()
 {
-	if (PlayableCharacter->IsInAir() || bIsDash || IsSkillable()) return;
+	if (PlayableCharacter->IsInAir() || bIsDash || IsSkillable() || PlayableCharacter->IsDie()) return;
 
 	if (OnLRegularAttackFinished.IsBound())
 		OnLRegularAttackFinished.Broadcast();
@@ -206,6 +206,8 @@ void USkillControllerComponent::Dash()
 
 void USkillControllerComponent::PlayQuickSlotkill(FName skillCode, ESkillType skillType)
 {
+	if (PlayableCharacter->IsDie()) return;
+
 	if (skillType == ESkillType::SKT_ACTIVE) PlayActiveSkill(skillCode);
 	else if (skillType == ESkillType::SKT_ITEM) PlayUseItem(skillCode);
 }
@@ -251,11 +253,14 @@ void USkillControllerComponent::UpdateAttackRange()
 
 	for (auto hit : hitResults)
 	{
-		hit.GetActor()->TakeDamage(
-			PlayableCharacter->GetPlayerManager()->GetPlayerInfo()->Atk,
-			FDamageEvent(),
-			PlayableCharacter->GetController(),
-			PlayableCharacter);
+		if (!hit.GetActor()->ActorHasTag(TEXT("Player")))
+		{
+			hit.GetActor()->TakeDamage(
+				PlayableCharacter->GetPlayerManager()->GetPlayerInfo()->Atk * BehaviorSkillInfo->SkillValue,
+				FDamageEvent(),
+				PlayableCharacter->GetController(),
+				PlayableCharacter);
+		}
 	}
 }
 

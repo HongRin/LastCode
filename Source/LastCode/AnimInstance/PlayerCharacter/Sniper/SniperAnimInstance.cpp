@@ -99,3 +99,4 @@ void USniperAnimInstance::AnimNotify_PlayFreezingShotParticle()
 		(Owner->GetActorForwardVector() * 700.0f) +
 		(Owner->GetActorUpVector() * -80.0f));
 }
+

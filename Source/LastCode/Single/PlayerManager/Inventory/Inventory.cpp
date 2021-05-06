@@ -145,9 +145,11 @@ bool UInventory::AddItem(FItemSlotInfo& newItemSlotInfo)
 				InventoryWnd->UpdateInventoryItemSlots();
 		}
 
+
 		// 모든 아이템을 추가했다면
 		if (newItemSlotInfo.ItemCount == 0)
 		{
+			UpdateSkillItemCount(newItemSlotInfo.ItemCode, addCount);
 			return true;
 		}
 	}
@@ -231,12 +233,6 @@ void UInventory::UpdateSkillItemCount(FName itemCode, int32 Count)
 			if (GetManager(UPlayerManager)->GetQuickManager()->ItemCountChangeEvent.IsBound())
 				GetManager(UPlayerManager)->GetQuickManager()->ItemCountChangeEvent.Broadcast(itemCode, Count);
 		}
-	}
-
-	for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->SkillInfo.Num(); ++i)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("SkillInfo[%d]::Count[%d]"), i,
-			GetManager(UPlayerManager)->GetPlayerInfo()->SkillInfo[i].SkillLevel);
 	}
 }
  

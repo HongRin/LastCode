@@ -21,12 +21,11 @@ void ABaseCharacter::OnTakeDamage(
 	{
 		SetHp(0.0f);
 		bIsDie = true;
-
 		OnCharacterDie();
 	}
 }
 void ABaseCharacter::OnCharacterDie()
 {
-	GetMesh()->SetCollisionProfileName(TEXT("DiedCharacterMesh"));
-	GetMesh()->SetSimulatePhysics(true);
+	GetMesh()->SetCollisionProfileName(TEXT("NoCollision"));
+	GetCapsuleComponent()->SetCollisionProfileName(TEXT("NoCollision"));
 }

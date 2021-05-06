@@ -4,10 +4,15 @@
 #include "GameFramework/Character.h"
 #include "BaseCharacter.generated.h"
 
+DECLARE_MULTICAST_DELEGATE(FOnCharacterDieEventSignature)
+
 UCLASS()
 class LASTCODE_API ABaseCharacter : public ACharacter
 {
 	GENERATED_BODY()
+
+public :
+	FOnCharacterDieEventSignature OnCharacterDieEvent;
 
 protected:
 	UPROPERTY()
