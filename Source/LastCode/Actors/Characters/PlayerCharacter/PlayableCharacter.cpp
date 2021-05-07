@@ -6,6 +6,7 @@
 
 #include "Components/ZoomableSpringArm/ZoomableSpringArmComponent.h"
 #include "Components/SkillController/SkillControllerComponent.h"
+#include "Components/LevelUpComponent/LevelUpComponent.h"
 
 #include "Single/GameInstance/LCGameInstance.h"
 #include "Single/PlayerManager/PlayerManager.h"
@@ -59,6 +60,7 @@ void APlayableCharacter::BeginPlay()
 	QuickManager = GetManager(UPlayerManager)->GetQuickManager();
 
 	SetHp(GetMaxHp());
+	SetStamina(GetMaxStamina());
 }
 
 void APlayableCharacter::Tick(float DeltaTime)
@@ -155,6 +157,7 @@ void APlayableCharacter::LoadAsset()
 void APlayableCharacter::InitializeComponent()
 {
 	SkillController = CreateDefaultSubobject<USkillControllerComponent>(TEXT("SKILL_CONTROLLER_COM"));
+	LevelUpSystem = CreateDefaultSubobject<ULevelUpComponent>(TEXT("LEVEL_UP_SYSTEM"));
 }
 
 void APlayableCharacter::InputHorizontal(float axis)
@@ -207,6 +210,7 @@ void APlayableCharacter::Walk()
 
 void APlayableCharacter::QuickSlotPressed(FKey key)
 {
+	if (bIsLobby) return;
 	QuickManager->QuickSlotEventExecution(key);
 }
 

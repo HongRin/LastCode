@@ -24,11 +24,11 @@ void UQuickSlotBar::NativeConstruct()
 
 void UQuickSlotBar::InitializeQuickSlots()
 {
-	for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotCount; ++i)
+	for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos.Num(); ++i)
 	{
 		UQuickSlot* quickSlot = CreateWidget<UQuickSlot>(this, BP_QuickSlot);
 		quickSlot->SetQuickSlotInfo(GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos[i]);
-		quickSlot->SetQuickSlotKey(GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos[i].QuickSlotKey);
+		quickSlot->InitializeQuickSlotSkillInfo(GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotSkillInfos[i]);
 		quickSlot->UpdateQuickSlot();
 		HorizontalBox_QuickSlotList->AddChild(quickSlot);
 	}

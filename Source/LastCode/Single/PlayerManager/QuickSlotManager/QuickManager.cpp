@@ -33,6 +33,10 @@ void UQuickManager::ReleaseQuickSlotBar()
 {
 	if (IsValid(QuickSlotBar))
 	{
+		for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos.Num(); ++i)
+		{
+			GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotSkillInfos[i].bQuickSlotCoolDownTime = false;
+		}
 		QuickSlotBar->RemoveFromParent();
 	}
 }
@@ -41,16 +45,16 @@ void UQuickManager::QuickSlotEventExecution(FKey key)
 {
 	if (!key.IsGamepadKey())
 	{
-		for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotCount; ++i)
+		for (int i = 0; i < GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos.Num(); ++i)
 		{
-			if (GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos[i].QuickSlotKey == key.GetFName())
+			if (GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotSkillInfos[i].QuickSlotKey == key.GetFName())
 			{
-				if (GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos[i].IsEmpty() ||
-					GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos[i].IsCoolDownTime()) return;
+				if (GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotSkillInfos[i].IsEmpty() ||
+					GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotSkillInfos[i].IsCoolDownTime()) return;
 				APlayableCharacter* playableCharacter = GetManager(UPlayerManager)->GetPlayableCharacter();
 				playableCharacter->GetSkillControllerComponent()->PlayQuickSlotkill(
-					GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos[i].SkillCode,
-					GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotInfos[i].SkillType);
+					GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotSkillInfos[i].SkillCode,
+					GetManager(UPlayerManager)->GetPlayerInfo()->QuickSlotSkillInfos[i].SkillType);
 			}
 		}
 	}

@@ -93,13 +93,12 @@ bool UInventory::AddItem(FItemSlotInfo& newItemSlotInfo)
 {
 	int32 addCount = newItemSlotInfo.ItemCount;
 
-	UE_LOG(LogTemp, Warning, TEXT("AddItem"));
-
 	Action(fnFillSlot, (FItemSlotInfo&, TArray<FItemSlotInfo>&, int32)) =
 		[](FItemSlotInfo& newItemSlotInfo, TArray<FItemSlotInfo>& inventoryItemInfos, int32 slotIndex)
 	{
 		// 아이템을 추가할 수 있는 여유 공간이 존재한다면
-		int32 addableItemCount = inventoryItemInfos[slotIndex].MaxSlotCount - inventoryItemInfos[slotIndex].ItemCount;
+		int32 addableItemCount = inventoryItemInfos[slotIndex].MaxSlotCount - newItemSlotInfo.ItemCount;
+
 		if (addableItemCount > 0)
 		{
 			// 추가할 수 있는 여유 공간을 매꾸며, 아이템을 최대한 채웁니다.
@@ -113,7 +112,7 @@ bool UInventory::AddItem(FItemSlotInfo& newItemSlotInfo)
 				// 추가한 아이템을 제외합니다.
 				--newItemSlotInfo.ItemCount;
 
-				UE_LOG(LogTemp, Warning, TEXT("fnFillSlot"));
+				//UE_LOG(LogTemp, Warning, TEXT("fnFillSlot"));
 			}
 		}
 	};
@@ -134,8 +133,6 @@ bool UInventory::AddItem(FItemSlotInfo& newItemSlotInfo)
 			// 인벤토리 창이 열려있다면 갱신합니다.
 			if (IsValid(InventoryWnd))
 				InventoryWnd->UpdateInventoryItemSlots();
-
-			UE_LOG(LogTemp, Warning, TEXT("IsSameItem"));
 		}
 		// 빈 아이템 슬롯을 찾았다면
 		else if (inventoryItemInfos[i].IsEmpty())
@@ -149,8 +146,6 @@ bool UInventory::AddItem(FItemSlotInfo& newItemSlotInfo)
 			// 인벤토리 창이 열려있다면 갱신합니다.
 			if (IsValid(InventoryWnd))
 				InventoryWnd->UpdateInventoryItemSlots();
-
-			UE_LOG(LogTemp, Warning, TEXT("IsEmpty"));
 		}
 
 

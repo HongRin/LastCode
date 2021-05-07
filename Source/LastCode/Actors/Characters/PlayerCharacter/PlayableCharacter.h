@@ -20,6 +20,9 @@ class LASTCODE_API APlayableCharacter : public APreviewCharacter,
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Basic", meta = (AllowPrivateAccess = "true"))
 		class USkillControllerComponent* SkillController;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Basic", meta = (AllowPrivateAccess = "true"))
+		class ULevelUpComponent* LevelUpSystem;
 #pragma endregion
 
 #pragma region ect Value
@@ -41,6 +44,8 @@ private:
 
 #pragma region StateValue
 	bool bIsMoveable;
+
+	bool bIsLobby;
 	
 	FGenericTeamId TeamId;
 #pragma endregion
@@ -127,4 +132,7 @@ public:
 
 	FORCEINLINE USkillControllerComponent* GetSkillControllerComponent() const
 	{ return SkillController; }
+
+	FORCEINLINE void IsLobby(bool isLobby)
+	{ bIsLobby = isLobby; }
 };

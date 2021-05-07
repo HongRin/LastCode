@@ -1,5 +1,6 @@
 #include "LobbyLevel.h"
 
+#include "Actors/Characters/PlayerCharacter/PlayableCharacter.h"
 #include "Actors/Controllers/PlayerController/PlayableController/PlayableController.h"
 
 #include "Single/GameInstance/LCGameInstance.h"
@@ -21,6 +22,8 @@ ALobbyLevel::ALobbyLevel()
 void ALobbyLevel::BeginPlay()
 {
 	Super::BeginPlay();
+
+	GetManager(UPlayerManager)->GetPlayableCharacter()->IsLobby(true);
 
 	if (!IsValid(LobbyWnd))
 	{

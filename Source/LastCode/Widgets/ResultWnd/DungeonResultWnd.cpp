@@ -70,10 +70,8 @@ void UDungeonResultWnd::UpdateDropItems(TArray<FItemSlotInfo> dropItems)
 	const int32 maxColumnCount = 6;
 	int32 currentColumnCount = 0;
 
-	// 인벤토리 슬롯들을 생성합니다.
 	for (int32 i = 0; i < dropItems.Num(); ++i)
 	{
-		// 인벤토리 슬롯을 생성합니다.
 		auto newItemSlot = CreateWidget<UItemSlot>(
 			this, BP_ItemSlot);;
 

@@ -47,7 +47,7 @@ public:
 
 	void RemoveEnemyCharacters(class AEnemyCharacter* enemyCharacter);
 
-	void SetDropItems(FName itemCode);
+	void SetDropItems(FName itemCode, int32 maxSlotCount);
 
 	FORCEINLINE void AddRewardSilver(int32 silver)
 	{ RewardSilver += silver; }

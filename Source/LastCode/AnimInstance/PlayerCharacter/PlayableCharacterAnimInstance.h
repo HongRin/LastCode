@@ -24,4 +24,8 @@ protected:
 
 public:
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+
+protected :
+	UFUNCTION()
+	void AnimNotify_HitFin();
 };

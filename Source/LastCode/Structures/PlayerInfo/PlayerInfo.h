@@ -5,6 +5,7 @@
 #include "Structures/SkillInfo/SkillInfo.h"
 #include "Structures/SkillReinforceInfo/SkillReinforceInfo.h"
 #include "Structures/QuickSlotInfo/QuickSlotInfo.h"
+#include "Structures/QuickSlotSkillIfno/QuickSlotSkillInfo.h"
 #include "Structures/ItemSlotInfo/ItemSlotInfo.h"
 #include "PlayerInfo.generated.h"
 
@@ -58,10 +59,10 @@ public:
 	TArray<FSkillInfo> SkillInfo;
 
 	UPROPERTY()
-	int32 QuickSlotCount;
+	TArray<FQuickSlotInfo> QuickSlotInfos;
 
 	UPROPERTY()
-	TArray<FQuickSlotInfo> QuickSlotInfos;
+	TArray<FQuickSlotSkillInfo> QuickSlotSkillInfos;
 
 	// 인벤토리 슬롯 개수
 	UPROPERTY()

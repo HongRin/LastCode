@@ -39,6 +39,8 @@ void ADungeonLevel::BeginPlay()
 	FirstMonsterCount = EnemyCharacters.Num();
 
 	UE_LOG(LogTemp, Warning, TEXT("%d"), FirstMonsterCount);
+
+	GetManager(UPlayerManager)->GetPlayableCharacter()->IsLobby(false);
 }
 
 void ADungeonLevel::DungeonClear()
@@ -70,11 +72,11 @@ void ADungeonLevel::RemoveEnemyCharacters(class AEnemyCharacter* enemyCharacter)
 	++Kill;
 }
 
-void ADungeonLevel::SetDropItems(FName itemCode)
+void ADungeonLevel::SetDropItems(FName itemCode, int32 maxSlotCount)
 {
 	if (DropItems.Num() == 0)
 	{
-		DropItems.Add(FItemSlotInfo(itemCode, 1));
+		DropItems.Add(FItemSlotInfo(itemCode, 1, maxSlotCount));
 		return;
 	}
 
@@ -87,5 +89,5 @@ void ADungeonLevel::SetDropItems(FName itemCode)
 		}
 	}
 
-	DropItems.Add(FItemSlotInfo(itemCode, 1));
+	DropItems.Add(FItemSlotInfo(itemCode, 1, maxSlotCount));
 }

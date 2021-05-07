@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "Widgets/ClosableWnd/DraggableWnd/DraggableWidget/BaseSlot/BaseSlot.h"
 #include "Structures/QuickSlotInfo/QuickSlotInfo.h"
+#include "Structures/QuickSlotSkillIfno/QuickSlotSkillInfo.h"
 #include "QuickSlot.generated.h"
 
 UCLASS()
@@ -16,9 +17,7 @@ private:
 
 	class USkillDetailWnd* SkillDetailWnd;
 
-
-
-private :
+private:
 	UPROPERTY(meta = (BindWidget))
 	class UTextBlock* Text_Value;
 
@@ -34,11 +33,13 @@ private :
 	UPROPERTY(meta = (BindWidgetAnim), meta = (AllowPrivateAccess = true))
 	class UWidgetAnimation* QuickSlotActivation;
 
-	FName QuickSlotkey;
+	UPROPERTY()
+	FName QuickSlotKey;
 
-	FText QuickSlotName;
+	UPROPERTY()
+	FText QuickSlotKeyName;
 
-	FQuickSlotInfo QuickSlotInfo;
+	struct FQuickSlotSkillInfo QuickSlotSkillInfo;
 
 	float StartTime;
 
@@ -51,10 +52,6 @@ protected :
 
 private :
 	void InitiailzeBind();
-
-	void LogPlayerQuickSlotInfo();
-
-	FString GetESkillTypeToString(ESkillType skillTypeValue);
 
 	void UpdateCoolDownTime();
 
@@ -71,21 +68,16 @@ public:
 
 	void SwapQuickSlot(UQuickSlot* firstQuickSlot, UQuickSlot* SecondQuickSlot);
 
+	struct FQuickSlotSkillInfo GetCodeToQuickSlotSkillInfo(FName code) const;
 
-	struct FQuickSlotInfo GetQuickSlotInfo(FName quickSlotkey) const;
+	void SetQuickSlotInfo(FQuickSlotInfo quickSlotInfo);
 
-	struct FQuickSlotInfo GetCodeToQuickSlotInfo(FName code) const;
+	void InitializeQuickSlotSkillInfo(FQuickSlotSkillInfo quickSlotSkillInfo);
 
-	void SetQuickSlotInfo(struct FQuickSlotInfo quickSlotInfo);
+	void SetQuickSlotSkillInfo(FQuickSlotSkillInfo quickSlotSkillInfo);
 
 	void SetQuickLockandUnlock(bool isLock);
 
-	FORCEINLINE void SetQuickSlotKey(FName quickSlotkey)
-	{ QuickSlotkey = quickSlotkey; }
-
-	FORCEINLINE FName GetQuickSlotKey() const
-	{ return QuickSlotkey; }
-
-	FORCEINLINE FQuickSlotInfo GetQuickSlotInfo() const
-	{ return QuickSlotInfo; }
+	FORCEINLINE FQuickSlotSkillInfo GetQuickSlotSkillInfo() const
+	{ return QuickSlotSkillInfo; }
 };

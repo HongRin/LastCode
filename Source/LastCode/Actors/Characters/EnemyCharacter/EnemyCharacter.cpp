@@ -181,9 +181,12 @@ void AEnemyCharacter::DropItem()
 	{
 		FString contextStirng;
 		FItemInfo* itemInfo = DT_ItemInfo->FindRow<FItemInfo>(EnemyInfo.DropItemCode[i], contextStirng);
-		if (itemInfo->DropPercent < FMath::FRandRange(0.0f, 100.0f))
-			DungeonLevel->SetDropItems(itemInfo->ItemCode);
+		
+		if (itemInfo->DropPercent > FMath::FRandRange(0.0f, 100.0f))
+			DungeonLevel->SetDropItems(itemInfo->ItemCode, itemInfo->MaxSlotCount);
 	}
+
+	
 }
 
 bool AEnemyCharacter::IsMovable() const
